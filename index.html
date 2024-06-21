@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wake Up App</title>
+</head>
+<body>
+    <h1>唤起家长端 Web 测试页</h1>
+    <button onclick="wakeUpApp()"> 点击唤起家长端 </button>
+
+    <script type="text/javascript">
+        function wakeUpApp() {
+            if (navigator.userAgent.match(/(iPhone);?/i)) {
+                var loadDateTime = new Date();
+                window.setTimeout(function() {
+                    var timeOutDateTime = new Date();
+                    if (timeOutDateTime - loadDateTime < 5000) {
+                        window.location.href = "talfamilyapp://com.tal.bixin.family/handlepush?scheme=https://www.baidu.com";
+                    } else {
+                        window.close();
+                    }
+                }, 25);
+                window.location.href = "talfamilyapp://com.tal.bixin.family/handlepush?scheme=https://www.baidu.com";
+            } else if (navigator.userAgent.match(/android/i)) {
+                var state = null;
+                try {
+                    state = window.open("apps custom url schemes ", '_blank');
+                } catch (e) {}
+                if (state) {
+                    window.close();
+                } else {
+                    window.location.href = "要跳转的页面URL";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
